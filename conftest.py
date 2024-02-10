@@ -1,14 +1,11 @@
 from selene import browser, be, have
 import pytest
 
-@pytest.fixture()
-def test_browser():
-    browser.open('https://google.com')
+
+@pytest.fixture(autouse=True)
+def setting_browser():
+    browser.config.window_height = 1080  # задает высоту окна браузера
+    browser.config.window_width = 1920  # задает ширину окна браузера
 
     yield
-
-@pytest.fixture()
-def test_browser_1():
-    browser.open('https://www.ecosia.org/')
-
-    yield
+    browser.quit()
